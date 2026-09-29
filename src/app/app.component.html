@@ -1,1 +1,51 @@
-<h1 style="display: flex; justify-content: center; font-family: sans-serif;">NGX SIMULATOR</h1>
+<header class="header">
+<div class="header_wrapper-top">
+  <div class="header_top">
+    <div class="wrapper_logo">
+      <img src="/images/icon/company-name.svg" alt="РУМТИБЕТ">
+      <span class="logo-text">{{ companyName }}</span>
+    </div>
+    <nav class="header_nav">
+      <a href="#">Главная</a>
+      <a href="#">Про гида</a>
+      <a href="#">Программа тура</a>
+      <a href="#">Стоимость</a>
+      <a href="#">Блог</a>
+      <a href="#">Контакты</a>
+    </nav>
+    <a href="#" class="header_button">Консультация</a>
+  </div>
+</div>
+  <h1>НАСЛАДИСЬ ПРОГУЛКОЙ В ГОРАХ<br>
+С КОМАНДОЙ ЕДИНОМЫШЛЕННИКОВ
+  </h1>
+<form class="tour_filter-form">
+  <div class="filter_field filter_field-select">
+    <select name="location" required>
+      <option value="" selected disabled>Локация для тура</option>
+      <option value="rome">Рим</option>
+      <option value="tashkent">Ташкент</option>
+      <option value="oslo">Осло</option>
+      <option value="london">Лондон</option>
+      <option value="paris">Париж</option>
+    </select>
+    <small>выберите из списка</small>
+  </div>
+  <div class="filter_field">
+    <input type="date" name="tour_date" required>
+    <small>укажите дату</small>
+  </div>
+  <div class="filter_field filter_field-select">
+    <select name="participants" required>
+      <option value="" selected disabled>Участники</option>
+      <option value="1">1 человек</option>
+      <option value="2">2 человека</option>
+      <option value="3">3 человека</option>
+      <option value="4">4 человека</option>
+      <option value="5">5 человек</option>
+    </select>
+    <small>выберите из списка</small>
+  </div>
+  <button type="submit" class="filter_submit-btn">Найти программу</button>
+</form>
+</header>
