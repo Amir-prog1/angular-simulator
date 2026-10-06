@@ -1,51 +1,123 @@
-<header class="header">
-<div class="header_wrapper-top">
-  <div class="header_top">
-    <div class="wrapper_logo">
-      <img src="/images/icon/company-name.svg" alt="РУМТИБЕТ">
-      <span class="logo-text">{{ companyName }}</span>
+@if (isLoading) {
+  <div class="page-loader">
+    <div class="page-loader__spinner"></div>
+  </div>
+} @else {
+  <header class="header">
+    <div class="header_wrapper-top">
+      <div class="header_top">
+        <div class="wrapper_logo">
+          <img src="/images/icon/company-name.svg" alt="РУМТИБЕТ">
+          <span class="logo-text">{{ companyName }}</span>
+        </div>
+        <nav class="header_nav">
+          <a href="#">Главная</a>
+          <a href="#">Про гида</a>
+          <a href="#">Программа тура</a>
+          <a href="#">Стоимость</a>
+          <a href="#">Блог</a>
+          <a href="#">Контакты</a>
+        </nav>
+        <a href="#" class="header_button">Консультация</a>
+      </div>
     </div>
-    <nav class="header_nav">
-      <a href="#">Главная</a>
-      <a href="#">Про гида</a>
-      <a href="#">Программа тура</a>
-      <a href="#">Стоимость</a>
-      <a href="#">Блог</a>
-      <a href="#">Контакты</a>
-    </nav>
-    <a href="#" class="header_button">Консультация</a>
-  </div>
-</div>
-  <h1>НАСЛАДИСЬ ПРОГУЛКОЙ В ГОРАХ<br>
-С КОМАНДОЙ ЕДИНОМЫШЛЕННИКОВ
-  </h1>
-<form class="tour_filter-form">
-  <div class="filter_field filter_field-select">
-    <select name="location" required>
-      <option value="" selected disabled>Локация для тура</option>
-      <option value="rome">Рим</option>
-      <option value="tashkent">Ташкент</option>
-      <option value="oslo">Осло</option>
-      <option value="london">Лондон</option>
-      <option value="paris">Париж</option>
-    </select>
-    <small>выберите из списка</small>
-  </div>
-  <div class="filter_field">
-    <input type="date" name="tour_date" required>
-    <small>укажите дату</small>
-  </div>
-  <div class="filter_field filter_field-select">
-    <select name="participants" required>
-      <option value="" selected disabled>Участники</option>
-      <option value="1">1 человек</option>
-      <option value="2">2 человека</option>
-      <option value="3">3 человека</option>
-      <option value="4">4 человека</option>
-      <option value="5">5 человек</option>
-    </select>
-    <small>выберите из списка</small>
-  </div>
-  <button type="submit" class="filter_submit-btn">Найти программу</button>
-</form>
-</header>
+    <div class="header_tasks">
+      @if (showTimer) {
+        <div class="header_task">
+          <span class="header_task-title">Текущая дата:</span>
+          <span class="header_task-value">{{ currentDate | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+        </div>
+      } @else {
+        <div class="header_task">
+          <span class="header_task-title">Счётчик:</span>
+          <span class="header_task-value">{{ counter }}</span>
+          <div class="counter-buttons">
+            <button type="button" class="counter-button" [disabled]="counter === 0" (click)="decreaseCounter()">-</button>
+            <button type="button" class="counter-button" (click)="increaseCounter()">+</button>
+          </div>
+        </div>
+      }
+      <button type="button" class="task-toggle-button" (click)="toggleTask()">{{ showTimer ? 'Показать счётчик' : 'Показать таймер' }}</button>
+    </div>
+    <h1>НАСЛАДИСЬ ПРОГУЛКОЙ В ГОРАХ<br>С КОМАНДОЙ ЕДИНОМЫШЛЕННИКОВ</h1>
+    <form class="tour_filter-form">
+      <div class="filter_field filter_field-select">
+        <select name="location" [(ngModel)]="location" required>
+          <option value="" selected disabled>Локация для тура</option>
+          <option value="rome">Рим</option>
+          <option value="tashkent">Ташкент</option>
+          <option value="oslo">Осло</option>
+          <option value="london">Лондон</option>
+          <option value="paris">Париж</option>
+        </select>
+        <small>выберите из списка</small>
+      </div>
+      <div class="filter_field">
+        <input type="date" name="tour_date" [(ngModel)]="tourDate" required>
+        <small>укажите дату</small>
+      </div>
+      <div class="filter_field filter_field-select">
+        <select name="participants" [(ngModel)]="participantCount" required>
+          <option [ngValue]="null" disabled>Участники</option>
+          <option [ngValue]="1">1 человек</option>
+          <option [ngValue]="2">2 человека</option>
+          <option [ngValue]="3">3 человека</option>
+          <option [ngValue]="4">4 человека</option>
+          <option [ngValue]="5">5 человек</option>
+        </select>
+        <small>выберите из списка</small>
+      </div>
+      <button type="submit" class="filter_submit-btn" [disabled]="!isFormValid()">Найти программу</button>
+    </form>
+    <div class="live-input">
+      <input type="text" class="live-input__field" [(ngModel)]="liveText" name="liveText" placeholder="Введите текст">
+      <span class="live-input__result">{{ liveText }}</span>
+    </div>
+  </header>
+  <section class="first-section">
+    <div class="images-container">
+      <img id="first-section_rock" class="first-section_img" src="/images/pictures/rock.jpg" alt="Скала">
+      <div class="play-button">
+        <svg width="22" height="22" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.24194 2.19302C3.24194 1.4057 4.11053 0.925585 4.77977 1.34386L10.0298 4.62512C10.6582 5.0179 10.6582 5.93665 10.0298 6.32943L4.77977 9.61069C4.11053 10.029 3.24194 9.54885 3.24194 8.76153V2.19302Z" fill="#1A3E3E"></path>
+        </svg>
+      </div>
+      <img id="first-section_house" class="first-section_img" src="/images/pictures/little-house.jpg" alt="Домик">
+    </div>
+    <div class="first-section_wrapper">
+      <span>о нашем походе</span>
+      <h2>Исследуйте все горные массивы мира вместе с нами</h2>
+      <p>Его корни уходят в один фрагмент классической латыни 45 года <br> н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, <br> профессор латыни из колледжа Hampden-Sydney, штат <br> Вирджиния, взял одно из самых странных слов в Lorem Ipsum, <br> "consectetur" и занялся его поисками в классической латинской <br> литературе.</p>
+      <button class="sections-button">Программа тура</button>
+    </div>
+  </section>
+  <section class="second-section">
+    <div class="program-wrapper">
+      <div class="program-title">
+        <span>наше предложение</span>
+        <h2>Лучшие программы для тебя</h2>
+      </div>
+      <p>Его корни уходят в один фрагмент классической латыни 45 года <br> н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, <br> профессор латыни из колледжа.</p>
+      <div class="programs__features">
+        @for (program of programs; track program.title) {
+          <div class="programs__feature">
+            <div class="programs__icon">
+              <img [src]="program.icon" [alt]="program.title">
+            </div>
+            <div class="programs__feature-content">
+              <h3 class="programs__feature-title">{{ program.title }}</h3>
+              <p class="programs__feature-description">{{ program.description }}</p>
+            </div>
+          </div>
+        }
+      </div>
+      <button class="sections-button">Стоимость программ</button>
+    </div>
+    <div class="program-images">
+      <img class="program-images_card" src="/images/pictures/lake.jpg" alt="озеро">
+      <img class="program-images_card" src="/images/pictures/canyon.jpg" alt="каньон">
+      <img class="program-images_card" src="/images/pictures/snowmobile.jpg" alt="снегоход">
+      <img class="program-images_card" src="/images/pictures/orange-river.jpg" alt="оранжевая река">
+    </div>
+  </section>
+}
