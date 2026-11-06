@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MessageService } from './services/message.service';
+import { MessageType } from './enums/message-type';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Color } from '../enums/Color';
 import { Collection } from '../collection';
+import { LocalStorageService } from './services/local-storage.service';
 
 interface Program {
   title: string;
@@ -15,27 +18,45 @@ interface Program {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  public MessageType = MessageType;
+
+  public showSuccess(): void {
+    this.messageService.addMessage('Направления получены', MessageType.SUCCESS);
+  }
+
+  public showInfo(): void {
+    this.messageService.addMessage('Стоимость отправлена на почту', MessageType.INFO);
+  }
+
+  public showWarning(): void {
+    this.messageService.addMessage('Программа недоступна', MessageType.WARN);
+  }
+
+  public showError(): void {
+    this.messageService.addMessage('Материалы недоступны', MessageType.ERROR);
+  }
+
   public companyName: string = 'РУМТИБЕТ';
 
   public programs: Program[] = [
     {
       title: 'Опытный гид',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/people.svg'
+      icon: '/images/icon/people.svg',
     },
     {
       title: 'Безопасный поход',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/safety.svg'
+      icon: '/images/icon/safety.svg',
     },
     {
       title: 'Лояльные цены',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/loyalty.svg'
-    }
+      icon: '/images/icon/loyalty.svg',
+    },
   ];
 
   public cities = new Collection<string>([
@@ -43,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
     'Ташкент',
     'Осло',
     'Лондон',
-    'Париж'
+    'Париж',
   ]);
 
   public participants = new Collection<number>([
@@ -51,7 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
     2,
     3,
     4,
-    5
+    5,
   ]);
 
   public location: string = '';
@@ -70,7 +91,10 @@ export class AppComponent implements OnInit, OnDestroy {
   public isLoading: boolean = true;
   private loaderId: ReturnType<typeof setTimeout> | null = null;
 
-  constructor() {
+  constructor(
+    public messageService: MessageService,
+    private localStorageService: LocalStorageService
+  ) {
     this.saveLastVisit();
     this.saveVisitCount();
   }
@@ -128,17 +152,13 @@ export class AppComponent implements OnInit, OnDestroy {
   private saveLastVisit(): void {
     const currentDate = new Date().toISOString();
 
-    localStorage.setItem('lastVisit', currentDate);
+    this.localStorageService.setItem('lastVisit', currentDate);
   }
 
   private saveVisitCount(): void {
-    const currentCount = Number(
-      localStorage.getItem('visitCount') || '0'
-    );
+    const currentCount =
+      this.localStorageService.getItem<number>('visitCount') ?? 0;
 
-    localStorage.setItem(
-      'visitCount',
-      String(currentCount + 1)
-    );
+    this.localStorageService.setItem('visitCount', currentCount + 1);
   }
 }
