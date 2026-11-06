@@ -37,7 +37,9 @@
           </div>
         </div>
       }
-      <button type="button" class="task-toggle-button" (click)="toggleTask()">{{ showTimer ? 'Показать счётчик' : 'Показать таймер' }}</button>
+      <button type="button" class="task-toggle-button" (click)="toggleTask()">
+        {{ showTimer ? 'Показать счётчик' : 'Показать таймер' }}
+      </button>
     </div>
     <h1>НАСЛАДИСЬ ПРОГУЛКОЙ В ГОРАХ<br>С КОМАНДОЙ ЕДИНОМЫШЛЕННИКОВ</h1>
     <form class="tour_filter-form">
@@ -88,7 +90,7 @@
       <span>о нашем походе</span>
       <h2>Исследуйте все горные массивы мира вместе с нами</h2>
       <p>Его корни уходят в один фрагмент классической латыни 45 года <br> н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, <br> профессор латыни из колледжа Hampden-Sydney, штат <br> Вирджиния, взял одно из самых странных слов в Lorem Ipsum, <br> "consectetur" и занялся его поисками в классической латинской <br> литературе.</p>
-      <button class="sections-button">Программа тура</button>
+      <button class="sections-button" (click)="showInfo()">Программа тура</button>
     </div>
   </section>
   <section class="second-section">
@@ -111,7 +113,7 @@
           </div>
         }
       </div>
-      <button class="sections-button">Стоимость программ</button>
+      <button class="sections-button" (click)="showSuccess()">Стоимость программ</button>
     </div>
     <div class="program-images">
       <img class="program-images_card" src="/images/pictures/lake.jpg" alt="озеро">
@@ -120,4 +122,119 @@
       <img class="program-images_card" src="/images/pictures/orange-river.jpg" alt="оранжевая река">
     </div>
   </section>
+  <section class="popular-section">
+    <div class="popular-title">
+      <span>по версии отдыхающих</span>
+      <h2>Популярные направления</h2>
+    </div>
+    <div class="popular-cards">
+      <div class="popular-card">
+        <img src="/images/pictures/lough.jpg" alt="Озеро">
+        <div class="popular-rating">⭐ 4.9</div>
+        <div class="popular-info">
+          <div class="popular-text">
+            <h3>Озеро возле гор</h3>
+            <p>романтическое приключение</p>
+          </div>
+          <span>480 $</span>
+        </div>
+      </div>
+      <div class="popular-card">
+        <img src="/images/pictures/night-in-the-mountains.jpg" alt="Горы">
+        <div class="popular-rating">⭐ 4.5</div>
+        <div class="popular-info">
+          <div class="popular-text">
+            <h3>Ночь в горах</h3>
+            <p>в компании друзей</p>
+          </div>
+          <span>500 $</span>
+        </div>
+      </div>
+      <div class="popular-card">
+        <img src="/images/pictures/stretching-in-the-mountains.jpg" alt="Скалы">
+        <div class="popular-rating">⭐ 5.0</div>
+        <div class="popular-info">
+          <div class="popular-text">
+            <h3>Растяжка в горах</h3>
+            <p>для тех, кто забоится о себе</p>
+          </div>
+          <span>230 $</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="blog-section">
+    <button class="sections-button" (click)="showWarning()">Рейтинг направлений</button>
+    <div class="blog-title">
+      <span>делимся впечатлениями</span>
+      <h2>Блог о путешествиях</h2>
+    </div>
+    <div class="blog-cards">
+      <div class="blog-card">
+        <img src="/images/pictures/italy.jpg" alt="Италия">
+        <div class="blog-card-info">
+          <h3>Красивая Италия, какая<br> она в реальности?</h3>
+          <p>Для современного мира базовый вектор<br> развития предполагает независимые<br> способы реализации соответствующих<br> условий активизации.</p>
+          <div class="blog-card-footer">
+            <span>01/04/2023</span>
+            <a href="#">читать статью</a>
+          </div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="/images/pictures/airplane.jpg" alt="Самолёт">
+        <div class="blog-card-info">
+          <h3>Долой сомнения! Весь<br> мир открыт для вас!</h3>
+          <p>Для современного мира базовый вектор<br> развития предполагает независимые<br> способы реализации соответствующих<br> условий активизации ... независимые<br> способы реализации соответствующих...</p>
+          <div class="blog-card-footer">
+            <span>01/04/2023</span>
+            <a href="#">читать статью</a>
+          </div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="/images/pictures/narrow-street.jpg" alt="Улочка">
+        <div class="blog-card-info">
+          <h3>Как подготовиться к<br> путешествию в<br> одиночку?</h3>
+          <p>Для современного мира базовый вектор<br> развития предполагает.</p>
+          <div class="blog-card-footer">
+            <span>01/04/2023</span>
+            <a href="#">читать статью</a>
+          </div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="/images/pictures/india.jpg" alt="Индия">
+        <div class="blog-card-info">
+          <h3>Индия ... летим?</h3>
+          <p>Для современного мира базовый.</p>
+          <div class="blog-card-footer">
+            <span>01/04/2023</span>
+            <a href="#">читать статью</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <button class="sections-button" (click)="showError()">Другие материалы</button>
 }
+<ng-template #messageTemplate let-message>
+  <div class="message" [ngClass]="message.type">
+    <img class="message__icon" src="/images/icon/letter.svg" alt="Письмо">
+    <div class="message__content">
+      <h3>{{ message.type | titlecase }}</h3>
+      <p>{{ message.text }}</p>
+    </div>
+    <button class="message__close" type="button" (click)="messageService.closeMessage(message.id)">
+      <img src="/images/icon/close.svg" alt="Закрыть">
+    </button>
+  </div>
+</ng-template>
+<div class="messages-container">
+  @for (message of messageService.messages; track message.id) {
+    <ng-container
+      [ngTemplateOutlet]="messageTemplate"
+      [ngTemplateOutletContext]="{ $implicit: message }">
+    </ng-container>
+  }
+</div>
