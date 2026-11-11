@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Message } from '../models/message';
-import { MessageType} from '../enums/message-type';
+import { MessageType } from '../enums/message-type';
 
 @Injectable({
   providedIn: 'root',
@@ -8,21 +8,21 @@ import { MessageType} from '../enums/message-type';
 export class MessageService {
   public messages: Message[] = [];
   public addMessage(text: string, type: MessageType): void {
-    const id = Date.now();
+    const id: number = Date.now();
 
     const message: Message = {
-      id: id,
-      text: text,
-      type: type,
+      id,
+      text,
+      type,
     };
 
-    this.messages.unshift(message);
+    this.messages = [message, ...this.messages];
 
     setTimeout(() => {
       this.closeMessage(id);
     }, 5000);
   }
   public closeMessage(id: number): void {
-    this.messages =this.messages.filter(message => message.id !== id);
+    this.messages = this.messages.filter((message: Message): boolean => message.id !== id);
   }
 }

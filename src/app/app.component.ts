@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MessageService } from './services/message.service';
 import { MessageType } from './enums/message-type';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { LocalStorageService } from './services/local-storage.service';
 interface Program {
   title: string;
   description: string;
-  icon: string;
+  image: string;
 }
 
 @Component({
@@ -45,17 +45,17 @@ export class AppComponent implements OnInit, OnDestroy {
     {
       title: 'Опытный гид',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/people.svg',
+      image: 'people-icon',
     },
     {
       title: 'Безопасный поход',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/safety.svg',
+      image: 'safety-icon',
     },
     {
       title: 'Лояльные цены',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/loyalty.svg',
+      image: 'loyalty-icon',
     },
   ];
 
@@ -67,13 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
     'Париж',
   ]);
 
-  public participants = new Collection<number>([
-    1,
-    2,
-    3,
-    4,
-    5,
-  ]);
+  public participants = new Collection<number>([1, 2, 3, 4, 5]);
 
   public location: string = '';
   public tourDate: string = '';
@@ -91,15 +85,13 @@ export class AppComponent implements OnInit, OnDestroy {
   public isLoading: boolean = true;
   private loaderId: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(
-    public messageService: MessageService,
-    private localStorageService: LocalStorageService
-  ) {
-    this.saveLastVisit();
-    this.saveVisitCount();
-  }
+  public messageService = inject(MessageService);
+  private localStorageService = inject(LocalStorageService);
 
   ngOnInit(): void {
+    this.saveLastVisit();
+    this.saveVisitCount();
+
     this.timerId = setInterval(() => {
       this.currentDate = new Date();
     }, 1000);
@@ -156,7 +148,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private saveVisitCount(): void {
-    const currentCount =
+    const currentCount: number =
       this.localStorageService.getItem<number>('visitCount') ?? 0;
 
     this.localStorageService.setItem('visitCount', currentCount + 1);
