@@ -13,6 +13,24 @@ interface Program {
   image: string;
 }
 
+interface PopularCard {
+  image: string;
+  alt: string;
+  rating: string;
+  title: string;
+  description: string;
+  price: number;
+}
+
+interface BlogCard {
+  image: string;
+  alt: string;
+  title: string;
+  description: string;
+  date: string;
+  id: string;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -56,6 +74,68 @@ export class AppComponent implements OnInit, OnDestroy {
       title: 'Лояльные цены',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
       image: 'loyalty-icon',
+    },
+  ];
+
+  public popularCards: PopularCard[] = [
+    {
+      image: '/images/pictures/lough.jpg',
+      alt: 'Озеро',
+      rating: '4.9',
+      title: 'Озеро возле гор',
+      description: 'романтическое приключение',
+      price: 480,
+    },
+    {
+      image: '/images/pictures/night-in-the-mountains.jpg',
+      alt: 'Горы',
+      rating: '4.5',
+      title: 'Ночь в горах',
+      description: 'в компании друзей',
+      price: 500,
+    },
+    {
+      image: '/images/pictures/stretching-in-the-mountains.jpg',
+      alt: 'Скалы',
+      rating: '5.0',
+      title: 'Растяжка в горах',
+      description: 'для тех, кто заботится о себе',
+      price: 230,
+    },
+  ];
+
+  public blogCards: BlogCard[] = [
+    {
+      image: '/images/pictures/italy.jpg',
+      alt: 'Италия',
+      title: 'Красивая Италия, какая она в реальности?',
+      description: 'Для современного мира базовый вектор развития предполагает независимые способы реализации соответствующих условий активизации.',
+      date: '01/04/2023',
+      id: 'blog-article-italy',
+    },
+    {
+      image: '/images/pictures/airplane.jpg',
+      alt: 'Самолёт',
+      title: 'Долой сомнения! Весь мир открыт для вас!',
+      description: 'Для современного мира базовый вектор развития предполагает независимые способы реализации соответствующих условий активизации ... независимые способы реализации соответствующих...',
+      date: '01/04/2023',
+      id: 'blog-article-world',
+    },
+    {
+      image: '/images/pictures/narrow-street.jpg',
+      alt: 'Улочка',
+      title: 'Как подготовиться к путешествию в одиночку?',
+      description: 'Для современного мира базовый вектор развития предполагает.',
+      date: '01/04/2023',
+      id: 'blog-article-solo-travel',
+    },
+    {
+      image: '/images/pictures/india.jpg',
+      alt: 'Индия',
+      title: 'Индия ... летим?',
+      description: 'Для современного мира базовый.',
+      date: '01/04/2023',
+      id: 'blog-article-india',
     },
   ];
 

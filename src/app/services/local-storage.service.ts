@@ -15,9 +15,9 @@ export class LocalStorageService {
       return null;
     }
 
-    const parsedItem: unknown = JSON.parse(item);
+    const parsedItem: T = JSON.parse(item);
 
-    return parsedItem as T;
+    return parsedItem;
   }
 
   public removeItem(key: string): void {

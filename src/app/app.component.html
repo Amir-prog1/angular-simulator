@@ -128,48 +128,22 @@
       <h2>Популярные направления</h2>
     </div>
     <div class="popular-cards">
-      <div class="popular-card">
-        <img src="/images/pictures/lough.jpg" alt="Озеро">
-        <div class="popular-rating">
-          <img src="/images/icon/star-icon.svg" alt="Рейтинг">
-          4.9
-        </div>
-        <div class="popular-info">
-          <div class="popular-text">
-            <h3>Озеро возле гор</h3>
-            <p>романтическое приключение</p>
+      @for (card of popularCards; track card.title) {
+        <div class="popular-card">
+          <img [src]="card.image" [alt]="card.alt">
+          <div class="popular-rating">
+            <img src="/images/icon/star-icon.svg" alt="Рейтинг">
+            {{ card.rating }}
           </div>
-          <span>480 &#36;</span>
-        </div>
-      </div>
-      <div class="popular-card">
-        <img src="/images/pictures/night-in-the-mountains.jpg" alt="Горы">
-        <div class="popular-rating">
-          <img src="/images/icon/star-icon.svg" alt="Рейтинг">
-          4.5
-        </div>
-        <div class="popular-info">
-          <div class="popular-text">
-            <h3>Ночь в горах</h3>
-            <p>в компании друзей</p>
+          <div class="popular-info">
+            <div class="popular-text">
+              <h3>{{ card.title }}</h3>
+              <p>{{ card.description }}</p>
+            </div>
+            <span>{{ card.price }} &#36;</span>
           </div>
-          <span>500 &#36;</span>
         </div>
-      </div>
-      <div class="popular-card">
-        <img src="/images/pictures/stretching-in-the-mountains.jpg" alt="Скалы">
-        <div class="popular-rating">
-          <img src="/images/icon/star-icon.svg" alt="Рейтинг">
-          5.0
-        </div>
-        <div class="popular-info">
-          <div class="popular-text">
-            <h3>Растяжка в горах</h3>
-            <p>для тех, кто забоится о себе</p>
-          </div>
-          <span>230 &#36;</span>
-        </div>
-      </div>
+      }
     </div>
   </section>
   <section class="blog-section">
@@ -179,50 +153,19 @@
       <h2>Блог о путешествиях</h2>
     </div>
     <div class="blog-cards">
-      <div class="blog-card">
-        <img src="/images/pictures/italy.jpg" alt="Италия">
-        <div class="blog-card-info">
-          <h3>Красивая Италия, какая<br> она в реальности?</h3>
-          <p>Для современного мира базовый вектор<br> развития предполагает независимые<br> способы реализации соответствующих<br> условий активизации.</p>
-          <div class="blog-card-footer">
-            <span>01/04/2023</span>
-            <a id="blog-article-italy" href="#">читать статью</a>
+      @for (card of blogCards; track card.id) {
+        <div class="blog-card">
+          <img [src]="card.image" [alt]="card.alt">
+          <div class="blog-card-info">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.description }}</p>
+            <div class="blog-card-footer">
+              <span>{{ card.date }}</span>
+              <a [id]="card.id" href="#">читать статью</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="blog-card">
-        <img src="/images/pictures/airplane.jpg" alt="Самолёт">
-        <div class="blog-card-info">
-          <h3>Долой сомнения! Весь<br> мир открыт для вас!</h3>
-          <p>Для современного мира базовый вектор<br> развития предполагает независимые<br> способы реализации соответствующих<br> условий активизации ... независимые<br> способы реализации соответствующих...</p>
-          <div class="blog-card-footer">
-            <span>01/04/2023</span>
-            <a id="blog-article-world" href="#">читать статью</a>
-          </div>
-        </div>
-      </div>
-      <div class="blog-card">
-        <img src="/images/pictures/narrow-street.jpg" alt="Улочка">
-        <div class="blog-card-info">
-          <h3>Как подготовиться к<br> путешествию в<br> одиночку?</h3>
-          <p>Для современного мира базовый вектор<br> развития предполагает.</p>
-          <div class="blog-card-footer">
-            <span>01/04/2023</span>
-            <a id="blog-article-solo-travel" href="#">читать статью</a>
-          </div>
-        </div>
-      </div>
-      <div class="blog-card">
-        <img src="/images/pictures/india.jpg" alt="Индия">
-        <div class="blog-card-info">
-          <h3>Индия ... летим?</h3>
-          <p>Для современного мира базовый.</p>
-          <div class="blog-card-footer">
-            <span>01/04/2023</span>
-            <a id="blog-article-india" href="#">читать статью</a>
-          </div>
-        </div>
-      </div>
+      }
     </div>
   </section>
   <button id="show-other-materials" class="sections-button" (click)="showError()">Другие материалы</button>
