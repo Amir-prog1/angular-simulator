@@ -642,6 +642,13 @@ h1 {
     display: flex;
     align-items: center;
     border-radius: 4px 0 0 4px;
+    gap: 4px;
+  
+    img {
+      width: 17.11px;
+      height: 16.36px;
+      object-fit: contain;
+    }
   }
 
   .popular-info {

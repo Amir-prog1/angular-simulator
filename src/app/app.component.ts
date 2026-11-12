@@ -85,8 +85,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public isLoading: boolean = true;
   private loaderId: ReturnType<typeof setTimeout> | null = null;
 
-  public messageService = inject(MessageService);
-  private localStorageService = inject(LocalStorageService);
+  public messageService: MessageService = inject(MessageService);
+  private localStorageService: LocalStorageService = inject(LocalStorageService);
 
   ngOnInit(): void {
     this.saveLastVisit();
@@ -142,7 +142,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private saveLastVisit(): void {
-    const currentDate = new Date().toISOString();
+    const currentDate: string = new Date().toISOString();
 
     this.localStorageService.setItem('lastVisit', currentDate);
   }
