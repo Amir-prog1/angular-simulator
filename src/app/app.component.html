@@ -130,7 +130,7 @@
     <div class="popular-cards">
       @for (card of popularCards; track card.title) {
         <div class="popular-card">
-          <img [src]="card.image" [alt]="card.alt">
+          <img [src]="'/images/pictures/' + card.image + '.jpg'" [alt]="card.alt">
           <div class="popular-rating">
             <img src="/images/icon/star-icon.svg" alt="Рейтинг">
             {{ card.rating }}
@@ -155,7 +155,7 @@
     <div class="blog-cards">
       @for (card of blogCards; track card.id) {
         <div class="blog-card">
-          <img [src]="card.image" [alt]="card.alt">
+          <img [src]="'/images/pictures/' + card.image + '.jpg'" [alt]="card.alt">
           <div class="blog-card-info">
             <h3>{{ card.title }}</h3>
             <p>{{ card.description }}</p>

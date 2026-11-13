@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public popularCards: PopularCard[] = [
     {
-      image: '/images/pictures/lough.jpg',
+      image: 'lough',
       alt: 'Озеро',
       rating: '4.9',
       title: 'Озеро возле гор',
@@ -87,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
       price: 480,
     },
     {
-      image: '/images/pictures/night-in-the-mountains.jpg',
+      image: 'night-in-the-mountains',
       alt: 'Горы',
       rating: '4.5',
       title: 'Ночь в горах',
@@ -95,7 +95,7 @@ export class AppComponent implements OnInit, OnDestroy {
       price: 500,
     },
     {
-      image: '/images/pictures/stretching-in-the-mountains.jpg',
+      image: 'stretching-in-the-mountains',
       alt: 'Скалы',
       rating: '5.0',
       title: 'Растяжка в горах',
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public blogCards: BlogCard[] = [
     {
-      image: '/images/pictures/italy.jpg',
+      image: 'italy',
       alt: 'Италия',
       title: 'Красивая Италия, какая она в реальности?',
       description: 'Для современного мира базовый вектор развития предполагает независимые способы реализации соответствующих условий активизации.',
@@ -114,7 +114,7 @@ export class AppComponent implements OnInit, OnDestroy {
       id: 'blog-article-italy',
     },
     {
-      image: '/images/pictures/airplane.jpg',
+      image: 'airplane',
       alt: 'Самолёт',
       title: 'Долой сомнения! Весь мир открыт для вас!',
       description: 'Для современного мира базовый вектор развития предполагает независимые способы реализации соответствующих условий активизации ... независимые способы реализации соответствующих...',
@@ -122,7 +122,7 @@ export class AppComponent implements OnInit, OnDestroy {
       id: 'blog-article-world',
     },
     {
-      image: '/images/pictures/narrow-street.jpg',
+      image: 'narrow-street',
       alt: 'Улочка',
       title: 'Как подготовиться к путешествию в одиночку?',
       description: 'Для современного мира базовый вектор развития предполагает.',
@@ -130,7 +130,7 @@ export class AppComponent implements OnInit, OnDestroy {
       id: 'blog-article-solo-travel',
     },
     {
-      image: '/images/pictures/india.jpg',
+      image: 'india',
       alt: 'Индия',
       title: 'Индия ... летим?',
       description: 'Для современного мира базовый.',
@@ -139,7 +139,7 @@ export class AppComponent implements OnInit, OnDestroy {
     },
   ];
 
-  public cities = new Collection<string>([
+  public cities: Collection<string> = new Collection<string>([
     'Рим',
     'Ташкент',
     'Осло',
@@ -147,7 +147,7 @@ export class AppComponent implements OnInit, OnDestroy {
     'Париж',
   ]);
 
-  public participants = new Collection<number>([1, 2, 3, 4, 5]);
+  public participants: Collection<number> = new Collection<number>([1, 2, 3, 4, 5]);
 
   public location: string = '';
   public tourDate: string = '';
