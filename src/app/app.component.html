@@ -7,18 +7,18 @@
     <div class="header_wrapper-top">
       <div class="header_top">
         <div class="wrapper_logo">
-          <img src="/images/icon/company-name.svg" alt="РУМТИБЕТ">
+          <img src="/images/icon/company-name-icon.svg" alt="РУМТИБЕТ">
           <span class="logo-text">{{ companyName }}</span>
         </div>
         <nav class="header_nav">
-          <a href="#">Главная</a>
-          <a href="#">Про гида</a>
-          <a href="#">Программа тура</a>
-          <a href="#">Стоимость</a>
-          <a href="#">Блог</a>
-          <a href="#">Контакты</a>
+          <a id="nav-home" href="#">Главная</a>
+          <a id="nav-guide" href="#">Про гида</a>
+          <a id="nav-tour-program" href="#">Программа тура</a>
+          <a id="nav-prices" href="#">Стоимость</a>
+          <a id="nav-blog" href="#">Блог</a>
+          <a id="nav-contacts" href="#">Контакты</a>
         </nav>
-        <a href="#" class="header_button">Консультация</a>
+        <a id="header-consultation" href="#" class="header_button">Консультация</a>
       </div>
     </div>
     <div class="header_tasks">
@@ -32,18 +32,20 @@
           <span class="header_task-title">Счётчик:</span>
           <span class="header_task-value">{{ counter }}</span>
           <div class="counter-buttons">
-            <button type="button" class="counter-button" [disabled]="counter === 0" (click)="decreaseCounter()">-</button>
-            <button type="button" class="counter-button" (click)="increaseCounter()">+</button>
+            <button id="counter-decrease" type="button" class="counter-button" [disabled]="counter === 0" (click)="decreaseCounter()">-</button>
+            <button id="counter-increase" type="button" class="counter-button" (click)="increaseCounter()">+</button>
           </div>
         </div>
       }
-      <button type="button" class="task-toggle-button" (click)="toggleTask()">{{ showTimer ? 'Показать счётчик' : 'Показать таймер' }}</button>
+      <button id="task-toggle" type="button" class="task-toggle-button" (click)="toggleTask()">
+        {{ showTimer ? 'Показать счётчик' : 'Показать таймер' }}
+      </button>
     </div>
     <h1>НАСЛАДИСЬ ПРОГУЛКОЙ В ГОРАХ<br>С КОМАНДОЙ ЕДИНОМЫШЛЕННИКОВ</h1>
-    <form class="tour_filter-form">
+    <form class="tour_filter-form" (ngSubmit)="showSuccess()">
       <div class="filter_field filter_field-select">
-        <select name="location" [(ngModel)]="location" required>
-          <option value="" selected disabled>Локация для тура</option>
+        <select id="tour-location" name="location" [(ngModel)]="location" required>
+          <option value="" disabled>Локация для тура</option>
           <option value="rome">Рим</option>
           <option value="tashkent">Ташкент</option>
           <option value="oslo">Осло</option>
@@ -53,11 +55,11 @@
         <small>выберите из списка</small>
       </div>
       <div class="filter_field">
-        <input type="date" name="tour_date" [(ngModel)]="tourDate" required>
+        <input id="tour-date" type="date" name="tour_date" [(ngModel)]="tourDate" required>
         <small>укажите дату</small>
       </div>
       <div class="filter_field filter_field-select">
-        <select name="participants" [(ngModel)]="participantCount" required>
+        <select id="tour-participants" name="participants" [(ngModel)]="participantCount" required>
           <option [ngValue]="null" disabled>Участники</option>
           <option [ngValue]="1">1 человек</option>
           <option [ngValue]="2">2 человека</option>
@@ -67,10 +69,10 @@
         </select>
         <small>выберите из списка</small>
       </div>
-      <button type="submit" class="filter_submit-btn" [disabled]="!isFormValid()">Найти программу</button>
+      <button id="tour-search-submit" type="submit" class="filter_submit-btn" [disabled]="!isFormValid()">Найти программу</button>
     </form>
     <div class="live-input">
-      <input type="text" class="live-input__field" [(ngModel)]="liveText" name="liveText" placeholder="Введите текст">
+      <input id="live-text-input" type="text" class="live-input__field" [(ngModel)]="liveText" name="liveText" placeholder="Введите текст">
       <span class="live-input__result">{{ liveText }}</span>
     </div>
   </header>
@@ -88,7 +90,7 @@
       <span>о нашем походе</span>
       <h2>Исследуйте все горные массивы мира вместе с нами</h2>
       <p>Его корни уходят в один фрагмент классической латыни 45 года <br> н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, <br> профессор латыни из колледжа Hampden-Sydney, штат <br> Вирджиния, взял одно из самых странных слов в Lorem Ipsum, <br> "consectetur" и занялся его поисками в классической латинской <br> литературе.</p>
-      <button class="sections-button">Программа тура</button>
+      <button id="show-tour-program" class="sections-button" (click)="showInfo()">Программа тура</button>
     </div>
   </section>
   <section class="second-section">
@@ -102,7 +104,7 @@
         @for (program of programs; track program.title) {
           <div class="programs__feature">
             <div class="programs__icon">
-              <img [src]="program.icon" [alt]="program.title">
+              <img [src]="'/images/icon/' + program.image + '.svg'" [alt]="program.title">
             </div>
             <div class="programs__feature-content">
               <h3 class="programs__feature-title">{{ program.title }}</h3>
@@ -111,7 +113,7 @@
           </div>
         }
       </div>
-      <button class="sections-button">Стоимость программ</button>
+      <button id="show-program-prices" class="sections-button" (click)="showSuccess()">Стоимость программ</button>
     </div>
     <div class="program-images">
       <img class="program-images_card" src="/images/pictures/lake.jpg" alt="озеро">
@@ -120,4 +122,71 @@
       <img class="program-images_card" src="/images/pictures/orange-river.jpg" alt="оранжевая река">
     </div>
   </section>
+  <section class="popular-section">
+    <div class="popular-title">
+      <span>по версии отдыхающих</span>
+      <h2>Популярные направления</h2>
+    </div>
+    <div class="popular-cards">
+      @for (card of popularCards; track card.title) {
+        <div class="popular-card">
+          <img [src]="'/images/pictures/' + card.image + '.jpg'" [alt]="card.alt">
+          <div class="popular-rating">
+            <img src="/images/icon/star-icon.svg" alt="Рейтинг">
+            {{ card.rating }}
+          </div>
+          <div class="popular-info">
+            <div class="popular-text">
+              <h3>{{ card.title }}</h3>
+              <p>{{ card.description }}</p>
+            </div>
+            <span>{{ card.price }} &#36;</span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+  <section class="blog-section">
+    <button id="show-destinations-rating" class="sections-button" (click)="showWarning()">Рейтинг направлений</button>
+    <div class="blog-title">
+      <span>делимся впечатлениями</span>
+      <h2>Блог о путешествиях</h2>
+    </div>
+    <div class="blog-cards">
+      @for (card of blogCards; track card.id) {
+        <div class="blog-card">
+          <img [src]="'/images/pictures/' + card.image + '.jpg'" [alt]="card.alt">
+          <div class="blog-card-info">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.description }}</p>
+            <div class="blog-card-footer">
+              <span>{{ card.date }}</span>
+              <a [id]="card.id" href="#">читать статью</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+  <button id="show-other-materials" class="sections-button" (click)="showError()">Другие материалы</button>
 }
+<ng-template #messageTemplate let-message>
+  <div class="message" [ngClass]="message.type">
+    <img class="message__icon" src="/images/icon/letter-icon.svg" alt="Письмо">
+    <div class="message__content">
+      <h3>{{ message.type | titlecase }}</h3>
+      <p>{{ message.text }}</p>
+    </div>
+    <button [id]="'close-message-' + message.id" class="message__close" type="button" (click)="messageService.closeMessage(message.id)">
+      <img src="/images/icon/close-icon.svg" alt="Закрыть">
+    </button>
+  </div>
+</ng-template>
+<div class="messages-container">
+  @for (message of messageService.messages; track message.id) {
+    <ng-container
+      [ngTemplateOutlet]="messageTemplate"
+      [ngTemplateOutletContext]="{ $implicit: message }">
+    </ng-container>
+  }
+</div>

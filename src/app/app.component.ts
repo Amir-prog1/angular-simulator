@@ -1,13 +1,34 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { MessageService } from './services/message.service';
+import { MessageType } from './enums/message-type';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Color } from '../enums/Color';
 import { Collection } from '../collection';
+import { LocalStorageService } from './services/local-storage.service';
 
 interface Program {
   title: string;
   description: string;
-  icon: string;
+  image: string;
+}
+
+interface PopularCard {
+  image: string;
+  alt: string;
+  rating: string;
+  title: string;
+  description: string;
+  price: number;
+}
+
+interface BlogCard {
+  image: string;
+  alt: string;
+  title: string;
+  description: string;
+  date: string;
+  id: string;
 }
 
 @Component({
@@ -15,44 +36,118 @@ interface Program {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  public MessageType = MessageType;
+
+  public showSuccess(): void {
+    this.messageService.addMessage('Направления получены', MessageType.SUCCESS);
+  }
+
+  public showInfo(): void {
+    this.messageService.addMessage('Стоимость отправлена на почту', MessageType.INFO);
+  }
+
+  public showWarning(): void {
+    this.messageService.addMessage('Программа недоступна', MessageType.WARN);
+  }
+
+  public showError(): void {
+    this.messageService.addMessage('Материалы недоступны', MessageType.ERROR);
+  }
+
   public companyName: string = 'РУМТИБЕТ';
 
   public programs: Program[] = [
     {
       title: 'Опытный гид',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/people.svg'
+      image: 'people-icon',
     },
     {
       title: 'Безопасный поход',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/safety.svg'
+      image: 'safety-icon',
     },
     {
       title: 'Лояльные цены',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
-      icon: '/images/icon/loyalty.svg'
-    }
+      image: 'loyalty-icon',
+    },
   ];
 
-  public cities = new Collection<string>([
+  public popularCards: PopularCard[] = [
+    {
+      image: 'lough',
+      alt: 'Озеро',
+      rating: '4.9',
+      title: 'Озеро возле гор',
+      description: 'романтическое приключение',
+      price: 480,
+    },
+    {
+      image: 'night-in-the-mountains',
+      alt: 'Горы',
+      rating: '4.5',
+      title: 'Ночь в горах',
+      description: 'в компании друзей',
+      price: 500,
+    },
+    {
+      image: 'stretching-in-the-mountains',
+      alt: 'Скалы',
+      rating: '5.0',
+      title: 'Растяжка в горах',
+      description: 'для тех, кто заботится о себе',
+      price: 230,
+    },
+  ];
+
+  public blogCards: BlogCard[] = [
+    {
+      image: 'italy',
+      alt: 'Италия',
+      title: 'Красивая Италия, какая она в реальности?',
+      description: 'Для современного мира базовый вектор развития предполагает независимые способы реализации соответствующих условий активизации.',
+      date: '01/04/2023',
+      id: 'blog-article-italy',
+    },
+    {
+      image: 'airplane',
+      alt: 'Самолёт',
+      title: 'Долой сомнения! Весь мир открыт для вас!',
+      description: 'Для современного мира базовый вектор развития предполагает независимые способы реализации соответствующих условий активизации ... независимые способы реализации соответствующих...',
+      date: '01/04/2023',
+      id: 'blog-article-world',
+    },
+    {
+      image: 'narrow-street',
+      alt: 'Улочка',
+      title: 'Как подготовиться к путешествию в одиночку?',
+      description: 'Для современного мира базовый вектор развития предполагает.',
+      date: '01/04/2023',
+      id: 'blog-article-solo-travel',
+    },
+    {
+      image: 'india',
+      alt: 'Индия',
+      title: 'Индия ... летим?',
+      description: 'Для современного мира базовый.',
+      date: '01/04/2023',
+      id: 'blog-article-india',
+    },
+  ];
+
+  public cities: Collection<string> = new Collection<string>([
     'Рим',
     'Ташкент',
     'Осло',
     'Лондон',
-    'Париж'
+    'Париж',
   ]);
 
-  public participants = new Collection<number>([
-    1,
-    2,
-    3,
-    4,
-    5
-  ]);
+  public participants: Collection<number> = new Collection<number>([1, 2, 3, 4, 5]);
 
   public location: string = '';
   public tourDate: string = '';
@@ -70,12 +165,13 @@ export class AppComponent implements OnInit, OnDestroy {
   public isLoading: boolean = true;
   private loaderId: ReturnType<typeof setTimeout> | null = null;
 
-  constructor() {
-    this.saveLastVisit();
-    this.saveVisitCount();
-  }
+  public messageService: MessageService = inject(MessageService);
+  private localStorageService: LocalStorageService = inject(LocalStorageService);
 
   ngOnInit(): void {
+    this.saveLastVisit();
+    this.saveVisitCount();
+
     this.timerId = setInterval(() => {
       this.currentDate = new Date();
     }, 1000);
@@ -126,19 +222,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private saveLastVisit(): void {
-    const currentDate = new Date().toISOString();
+    const currentDate: string = new Date().toISOString();
 
-    localStorage.setItem('lastVisit', currentDate);
+    this.localStorageService.setItem('lastVisit', currentDate);
   }
 
   private saveVisitCount(): void {
-    const currentCount = Number(
-      localStorage.getItem('visitCount') || '0'
-    );
+    const currentCount: number =
+      this.localStorageService.getItem<number>('visitCount') ?? 0;
 
-    localStorage.setItem(
-      'visitCount',
-      String(currentCount + 1)
-    );
+    this.localStorageService.setItem('visitCount', currentCount + 1);
   }
 }
