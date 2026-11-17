@@ -6,8 +6,26 @@ import { MessageType } from '../enums/message-type';
   providedIn: 'root',
 })
 export class MessageService {
-  public messages: Message[] = [];
-  public addMessage(text: string, type: MessageType): void {
+
+  messages: Message[] = [];
+
+  showWarn(text: string): void {
+    this.addMessage(text, MessageType.WARN);
+  }
+
+  showError(text: string): void {
+    this.addMessage(text, MessageType.ERROR);
+  }
+
+  showSuccess(text: string): void {
+    this.addMessage(text, MessageType.SUCCESS);
+  }
+
+  showInfo(text: string): void {
+    this.addMessage(text, MessageType.INFO);
+  }
+
+  private addMessage(text: string, type: MessageType): void {
     const id: number = Date.now();
 
     const message: Message = {
@@ -18,11 +36,15 @@ export class MessageService {
 
     this.messages = [message, ...this.messages];
 
-    setTimeout(() => {
+    setTimeout((): void => {
       this.closeMessage(id);
     }, 5000);
   }
-  public closeMessage(id: number): void {
-    this.messages = this.messages.filter((message: Message): boolean => message.id !== id);
+
+  closeMessage(id: number): void {
+    this.messages = this.messages.filter(
+      (message: Message): boolean => message.id !== id,
+    );
   }
+
 }

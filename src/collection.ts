@@ -1,12 +1,13 @@
 export class Collection<T> {
+
   private items: T[] = [];
 
   constructor(items: T[] = []) {
-    this.items = items;
+    this.items = [...items];
   }
 
   getAll(): T[] {
-    return this.items;
+    return [...this.items];
   }
 
   get(index: number): T | undefined {
@@ -18,10 +19,16 @@ export class Collection<T> {
   }
 
   remove(index: number): void {
-    this.items.splice(index, 1);
+    this.items = this.items.filter(
+      (_item: T, itemIndex: number): boolean => itemIndex !== index,
+    );
   }
 
   replace(index: number, item: T): void {
-    this.items[index] = item;
+    this.items = this.items.map(
+      (currentItem: T, itemIndex: number): T =>
+        itemIndex === index ? item : currentItem,
+    );
   }
+
 }
