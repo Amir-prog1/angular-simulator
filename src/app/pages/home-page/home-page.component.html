@@ -1,0 +1,176 @@
+<div class="header">
+  <div class="header_tasks">
+    @if (showTimer) {
+      <div class="header_task">
+        <span class="header_task-title">Текущая дата:</span>
+        <span class="header_task-value">{{ currentDate | date:'dd.MM.yyyy HH:mm:ss' }}</span>
+      </div>
+    } @else {
+      <div class="header_task">
+        <span class="header_task-title">Счётчик:</span>
+        <span class="header_task-value">{{ counter }}</span>
+        <div class="counter-buttons">
+          <button id="counter-decrease" type="button" class="counter-button" [disabled]="counter === 0" (click)="decreaseCounter()">-</button>
+          <button id="counter-increase" type="button" class="counter-button" (click)="increaseCounter()">+</button>
+        </div>
+      </div>
+    }
+    <button id="task-toggle" type="button" class="task-toggle-button" (click)="toggleTask()">
+      {{ showTimer ? 'Показать счётчик' : 'Показать таймер' }}
+    </button>
+  </div>
+  <h1>НАСЛАДИСЬ ПРОГУЛКОЙ В ГОРАХ<br>С КОМАНДОЙ ЕДИНОМЫШЛЕННИКОВ</h1>
+  <form class="tour_filter-form" (ngSubmit)="showSuccess()">
+    <div class="filter_field filter_field-select">
+      <select id="tour-location" name="location" [(ngModel)]="location" required>
+        <option value="" disabled>Локация для тура</option>
+        <option value="rome">Рим</option>
+        <option value="tashkent">Ташкент</option>
+        <option value="oslo">Осло</option>
+        <option value="london">Лондон</option>
+        <option value="paris">Париж</option>
+      </select>
+      <small>выберите из списка</small>
+    </div>
+    <div class="filter_field">
+      <input id="tour-date" type="date" name="tour_date" [(ngModel)]="tourDate" required>
+      <small>укажите дату</small>
+    </div>
+    <div class="filter_field filter_field-select">
+      <select id="tour-participants" name="participants" [(ngModel)]="participantCount" required>
+        <option [ngValue]="null" disabled>Участники</option>
+        <option [ngValue]="1">1 человек</option>
+        <option [ngValue]="2">2 человека</option>
+        <option [ngValue]="3">3 человека</option>
+        <option [ngValue]="4">4 человека</option>
+        <option [ngValue]="5">5 человек</option>
+      </select>
+      <small>выберите из списка</small>
+    </div>
+    <button id="tour-search-submit" type="submit" class="filter_submit-btn" [disabled]="!isFormValid()">Найти программу</button>
+  </form>
+  <div class="live-input">
+    <input id="live-text-input" type="text" class="live-input__field" [(ngModel)]="liveText" name="liveText" placeholder="Введите текст">
+    <span class="live-input__result">{{ liveText }}</span>
+  </div>
+</div>
+<div class="first-section-background">
+  <section class="first-section">
+    <div class="images-container">
+      <img id="first-section_rock" class="first-section_img" src="/images/pictures/rock.jpg" alt="Скала">
+      <div class="play-button">
+        <img src="/images/icon/play-icon.svg" alt="Воспроизвести">
+      </div>
+      <img id="first-section_house" class="first-section_img" src="/images/pictures/little-house.jpg" alt="Домик">
+    </div>
+    <div class="first-section_wrapper">
+      <span>о нашем походе</span>
+      <h2>Исследуйте все горные массивы мира вместе с нами</h2>
+      <p>Его корни уходят в один фрагмент классической латыни 45 года <br> н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, <br> профессор латыни из колледжа Hampden-Sydney, штат <br> Вирджиния, взял одно из самых странных слов в Lorem Ipsum, <br> "consectetur" и занялся его поисками в классической латинской <br> литературе.</p>
+      <button id="show-tour-program" class="sections-button" (click)="showInfo()">Программа тура</button>
+    </div>
+  </section>
+</div>
+<section class="second-section">
+  <div class="program-wrapper">
+    <div class="program-title">
+      <span>наше предложение</span>
+      <h2>Лучшие программы для тебя</h2>
+    </div>
+    <p>Его корни уходят в один фрагмент классической латыни 45 года <br> н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, <br> профессор латыни из колледжа.</p>
+    <div class="programs__features">
+      @for (program of programs; track program.title) {
+        <div class="programs__feature">
+          <div class="programs__icon">
+            <img [src]="'/images/icon/' + program.image + '.svg'" [alt]="program.title">
+          </div>
+          <div class="programs__feature-content">
+            <h3 class="programs__feature-title">{{ program.title }}</h3>
+            <p class="programs__feature-description">{{ program.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+    <button id="show-program-prices" class="sections-button" (click)="showSuccess()">Стоимость программ</button>
+  </div>
+  <div class="program-images">
+    <img class="program-images_card" src="/images/pictures/lake.jpg" alt="озеро">
+    <img class="program-images_card" src="/images/pictures/canyon.jpg" alt="каньон">
+    <img class="program-images_card" src="/images/pictures/snowmobile.jpg" alt="снегоход">
+    <img class="program-images_card" src="/images/pictures/orange-river.jpg" alt="оранжевая река">
+  </div>
+</section>
+<section class="popular-section">
+  <div class="popular-title">
+    <span>по версии отдыхающих</span>
+    <h2>Популярные направления</h2>
+  </div>
+  <div class="popular-cards">
+    @for (card of popularCards; track card.title) {
+      <div class="popular-card">
+        <img [src]="'/images/pictures/' + card.image + '.jpg'" [alt]="card.alt">
+        <div class="popular-rating">
+          <img src="/images/icon/star-icon.svg" alt="Рейтинг">
+          {{ card.rating }}
+        </div>
+        <div class="popular-info">
+          <div class="popular-text">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.description }}</p>
+          </div>
+          <span>{{ card.price }} &#36;</span>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+<section class="blog-section">
+  <button id="show-destinations-rating" class="sections-button" (click)="showWarning()">Рейтинг направлений</button>
+  <div class="blog-title">
+    <span>делимся впечатлениями</span>
+    <h2>Блог о путешествиях</h2>
+  </div>
+  <div class="blog-cards">
+    @for (card of blogCards; track card.id) {
+      <div class="blog-card">
+        <img [src]="'/images/pictures/' + card.image + '.jpg'" [alt]="card.alt">
+        <div class="blog-card-info">
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.description }}</p>
+          <div class="blog-card-footer">
+            <span>{{ card.date }}</span>
+            <a [id]="card.id" href="#">читать статью</a>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+<button id="show-other-materials" class="sections-button" (click)="showError()">Другие материалы</button>
+<section class="gallery-section">
+  <div class="gallery-title">
+    <span>фото-отчет</span>
+    <h2>Делимся впечатлениями</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item gallery-item--wide">
+      <img src="/images/pictures/balloon.jpg" alt="Воздушный шар">
+    </div>
+    <div class="gallery-item">
+      <img src="/images/pictures/camera.jpg" alt="Фотоаппарат">
+    </div>
+    <div class="gallery-item">
+      <img src="/images/pictures/dubai.jpg" alt="Дубай">
+    </div>
+    <div class="gallery-item">
+      <img src="/images/pictures/island.jpg" alt="Остров">
+    </div>
+    <div class="gallery-item gallery-item--wide">
+      <img src="/images/pictures/horseshoe-bend.jpg" alt="Хорсшу-Бенд">
+    </div>
+    <div class="gallery-item">
+      <img src="/images/pictures/magnifying-glass.jpg" alt="Лупа">
+    </div>
+  </div>
+  <button id="show-pinterest" class="sections-button gallery-button" type="button" (click)="showInfo()">Наш pinterest</button>
+</section>

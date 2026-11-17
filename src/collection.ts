@@ -2,26 +2,31 @@ export class Collection<T> {
   private items: T[] = [];
 
   constructor(items: T[] = []) {
-    this.items = items;
+    this.items = [...items];
   }
 
-  getAll(): T[] {
-    return this.items;
+  public getAll(): T[] {
+    return [...this.items];
   }
 
-  get(index: number): T | undefined {
+  public get(index: number): T | undefined {
     return this.items[index];
   }
 
-  clear(): void {
+  public clear(): void {
     this.items = [];
   }
 
-  remove(index: number): void {
-    this.items.splice(index, 1);
+  public remove(index: number): void {
+    this.items = this.items.filter(
+      (_item: T, itemIndex: number): boolean => itemIndex !== index,
+    );
   }
 
-  replace(index: number, item: T): void {
-    this.items[index] = item;
+  public replace(index: number, item: T): void {
+    this.items = this.items.map(
+      (currentItem: T, itemIndex: number): T =>
+        itemIndex === index ? item : currentItem,
+    );
   }
 }

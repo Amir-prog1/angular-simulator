@@ -1,0 +1,23 @@
+<header class="header">
+  <div class="header__wrapper">
+    <a
+      id="header-logo-link"
+      class="header__logo"
+      routerLink="/"
+    >
+      {{ companyName }}
+    </a>
+    <nav class="header__nav">
+      @for (link of navLinks; track link.id) {
+        <a
+          [id]="link.id"
+          [routerLink]="link.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          {{ link.title }}
+        </a>
+      }
+    </nav>
+  </div>
+</header>
