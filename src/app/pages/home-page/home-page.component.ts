@@ -38,10 +38,11 @@ interface BlogCard {
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent implements OnInit, OnDestroy {
+
   private messageService: MessageService = inject(MessageService);
   private localStorageService: LocalStorageService = inject(LocalStorageService);
 
-  public programs: Program[] = [
+  programs: Program[] = [
     {
       title: 'Опытный гид',
       description: 'Для современного мира базовый вектор развития предполагает \nнезависимые способы реализации соответствующих условий активизации.',
@@ -59,7 +60,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  public popularCards: PopularCard[] = [
+  popularCards: PopularCard[] = [
     {
       image: 'lough',
       alt: 'Озеро',
@@ -86,7 +87,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  public blogCards: BlogCard[] = [
+  blogCards: BlogCard[] = [
     {
       image: 'italy',
       alt: 'Италия',
@@ -121,24 +122,24 @@ export class HomePageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  public cities: Collection<string> = new Collection<string>([
+  cities: Collection<string> = new Collection<string>([
     'Рим', 'Ташкент', 'Осло', 'Лондон', 'Париж',
   ]);
 
-  public participants: Collection<number> = new Collection<number>([1, 2, 3, 4, 5]);
+  participants: Collection<number> = new Collection<number>([1, 2, 3, 4, 5]);
 
-  public location: string = '';
-  public tourDate: string = '';
-  public participantCount: number | null = null;
+  location: string = '';
+  tourDate: string = '';
+  participantCount: number | null = null;
 
-  public currentDate: Date = new Date();
+  currentDate: Date = new Date();
   private timerId: ReturnType<typeof setInterval> | null = null;
 
-  public counter: number = 0;
-  public showTimer: boolean = true;
-  public liveText: string = '';
+  counter: number = 0;
+  showTimer: boolean = true;
+  liveText: string = '';
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.saveLastVisit();
     this.saveVisitCount();
 
@@ -147,43 +148,43 @@ export class HomePageComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     if (this.timerId !== null) {
       clearInterval(this.timerId);
     }
   }
 
-  public showSuccess(): void {
+  showSuccess(): void {
     this.messageService.showSuccess('Направления получены');
   }
 
-  public showInfo(): void {
+  showInfo(): void {
     this.messageService.showInfo('Стоимость отправлена на почту');
   }
 
-  public showWarning(): void {
+  showWarning(): void {
     this.messageService.showWarn('Программа недоступна');
   }
 
-  public showError(): void {
+  showError(): void {
     this.messageService.showError('Материалы недоступны');
   }
 
-  public increaseCounter(): void {
+  increaseCounter(): void {
     this.counter++;
   }
 
-  public decreaseCounter(): void {
+  decreaseCounter(): void {
     if (this.counter > 0) {
       this.counter--;
     }
   }
 
-  public toggleTask(): void {
+  toggleTask(): void {
     this.showTimer = !this.showTimer;
   }
 
-  public isFormValid(): boolean {
+  isFormValid(): boolean {
     return !!(
       this.location &&
       this.tourDate &&
@@ -191,7 +192,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     );
   }
 
-  public isPrimaryColor(color: Color): boolean {
+  isPrimaryColor(color: Color): boolean {
     return (
       color === Color.RED ||
       color === Color.GREEN ||
@@ -211,4 +212,5 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
     this.localStorageService.setItem('visitCount', currentCount + 1);
   }
+
 }

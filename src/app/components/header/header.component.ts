@@ -15,10 +15,12 @@ interface NavLink {
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  public companyName: string = 'РУМТИБЕТ';
 
-  public navLinks: NavLink[] = [
+  companyName: string = 'РУМТИБЕТ';
+
+  navLinks: NavLink[] = [
     { id: 'home-nav-link', title: 'Главная', route: '/' },
     { id: 'users-nav-link', title: 'Пользователи', route: '/users' },
   ];
+
 }

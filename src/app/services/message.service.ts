@@ -6,21 +6,22 @@ import { MessageType } from '../enums/message-type';
   providedIn: 'root',
 })
 export class MessageService {
-  public messages: Message[] = [];
 
-  public showWarn(text: string): void {
+  messages: Message[] = [];
+
+  showWarn(text: string): void {
     this.addMessage(text, MessageType.WARN);
   }
 
-  public showError(text: string): void {
+  showError(text: string): void {
     this.addMessage(text, MessageType.ERROR);
   }
 
-  public showSuccess(text: string): void {
+  showSuccess(text: string): void {
     this.addMessage(text, MessageType.SUCCESS);
   }
 
-  public showInfo(text: string): void {
+  showInfo(text: string): void {
     this.addMessage(text, MessageType.INFO);
   }
 
@@ -40,9 +41,10 @@ export class MessageService {
     }, 5000);
   }
 
-  public closeMessage(id: number): void {
+  closeMessage(id: number): void {
     this.messages = this.messages.filter(
       (message: Message): boolean => message.id !== id,
     );
   }
+
 }

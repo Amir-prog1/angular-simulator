@@ -20,12 +20,13 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public isLoading: boolean = true;
-  private loaderId: ReturnType<typeof setTimeout> | null = null;
 
   private localStorageService: LocalStorageService = inject(LocalStorageService);
 
-  public ngOnInit(): void {
+  isLoading: boolean = true;
+  private loaderId: ReturnType<typeof setTimeout> | null = null;
+
+  ngOnInit(): void {
     this.saveLastVisit();
     this.saveVisitCount();
 
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }, 2000);
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     if (this.loaderId !== null) {
       clearTimeout(this.loaderId);
     }
@@ -51,4 +52,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.localStorageService.setItem('visitCount', currentCount + 1);
   }
+
 }

@@ -10,5 +10,7 @@ import { MessageService } from '../../services/message.service';
   styleUrl: './message.component.scss',
 })
 export class MessageComponent {
-  public messageService: MessageService = inject(MessageService);
+
+  messageService: MessageService = inject(MessageService);
+
 }
