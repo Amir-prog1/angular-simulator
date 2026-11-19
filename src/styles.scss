@@ -26,3 +26,7 @@ body {
   overflow-x: hidden;
   background-color: #FFFFFF;
 }
+
+body.loader-active {
+  overflow: hidden;
+}

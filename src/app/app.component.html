@@ -1,12 +1,7 @@
-@if (isLoading) {
-  <div class="page-loader">
-    <div class="page-loader__spinner"></div>
-  </div>
-} @else {
-  <app-header></app-header>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer></app-footer>
-}
+<app-loader></app-loader>
+<app-header></app-header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<app-footer></app-footer>
 <app-message></app-message>
