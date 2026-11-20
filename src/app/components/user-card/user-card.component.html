@@ -1,0 +1,76 @@
+<article class="user-card">
+  <div class="user-card__header">
+    <h2>{{ user.name || 'Неизвестно' }}</h2>
+    <p>{{ '@' + (user.username || 'Неизвестно') }}</p>
+  </div>
+  <div class="user-card__section">
+    <h3>Контакты</h3>
+    <div class="user-card__row">
+      <span>Эл. почта:</span>
+      <span class="user-card__value--accent">
+        {{ user.email || 'Неизвестно' }}
+      </span>
+    </div>
+    <div class="user-card__row">
+      <span>Телефон:</span>
+      <span>{{ user.phone || 'Неизвестно' }}</span>
+    </div>
+    <div class="user-card__row">
+      <span>Веб-сайт:</span>
+      <span class="user-card__value--accent">
+        {{ user.website || 'Неизвестно' }}
+      </span>
+    </div>
+  </div>
+  <div class="user-card__section">
+    <h3>Адрес Проживания</h3>
+    <div class="user-card__row">
+      <span>Город:</span>
+      <span>{{ user.address.city || 'Неизвестно' }}</span>
+    </div>
+    <div class="user-card__row">
+      <span>Улица:</span>
+      <span>{{ user.address.street || 'Неизвестно' }}</span>
+    </div>
+    <div class="user-card__row">
+      <span>Офис:</span>
+      <span>{{ user.address.suite || 'Неизвестно' }}</span>
+    </div>
+    <div class="user-card__row">
+      <span>Индекс:</span>
+      <span>{{ user.address.zipcode || 'Неизвестно' }}</span>
+    </div>
+    <div class="user-card__row">
+      <span>Координаты:</span>
+      <span class="user-card__coordinates">
+        <span>{{ user.address.geo.lat || 'Неизвестно' }}</span>
+        <span>{{ user.address.geo.lng || 'Неизвестно' }}</span>
+      </span>
+    </div>
+  </div>
+  <div class="user-card__section">
+    <h3>Место работы</h3>
+    <div class="user-card__row">
+      <span>Компания:</span>
+      <span>{{ user.company.name || 'Неизвестно' }}</span>
+    </div>
+    <div class="user-card__row">
+      <span>Миссия:</span>
+      <span class="user-card__value--italic">
+        «{{ user.company.catchPhrase || 'Неизвестно' }}»
+      </span>
+    </div>
+    <div class="user-card__row">
+      <span>Специализация:</span>
+      <span>{{ user.company.bs || 'Неизвестно' }}</span>
+    </div>
+  </div>
+  <button
+    type="button"
+    [id]="'delete-user-button-' + user.id"
+    class="user-card__delete"
+    (click)="onDelete()"
+  >
+    Удалить пользователя
+  </button>
+</article>
