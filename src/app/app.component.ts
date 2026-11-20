@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MessageComponent } from './components/message/message.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { LocalStorageService } from './services/local-storage.service';
 import { RouterOutlet } from '@angular/router';
 
@@ -14,31 +15,19 @@ import { RouterOutlet } from '@angular/router';
     HeaderComponent,
     FooterComponent,
     MessageComponent,
+    LoaderComponent,
     RouterOutlet,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
   private localStorageService: LocalStorageService = inject(LocalStorageService);
-
-  isLoading: boolean = true;
-  private loaderId: ReturnType<typeof setTimeout> | null = null;
 
   ngOnInit(): void {
     this.saveLastVisit();
     this.saveVisitCount();
-
-    this.loaderId = setTimeout((): void => {
-      this.isLoading = false;
-    }, 2000);
-  }
-
-  ngOnDestroy(): void {
-    if (this.loaderId !== null) {
-      clearTimeout(this.loaderId);
-    }
   }
 
   private saveLastVisit(): void {
