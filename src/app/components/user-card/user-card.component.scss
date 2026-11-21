@@ -1,0 +1,129 @@
+.user-card {
+  width: 100%;
+  max-width: 440px;
+  min-height: 630px;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  border-top: 4px solid rgba(212, 163, 115, 1);
+  border-radius: 5px;
+  color: rgba(29, 57, 57, 1);
+}
+
+.user-card__header {
+  padding: 35px 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user-card__header h2 {
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 29.9px;
+}
+
+.user-card__header p {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 17.25px;
+  color: #D4A373;
+}
+
+.user-card__section {
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 9.6px;
+}
+
+.user-card__section h3 {
+  margin-bottom: 3.2px;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 13.8px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &::after {
+    content: '';
+    display: block;
+    flex-grow: 1;
+    height: 2px;
+    background-color: rgba(226, 232, 240, 1);
+  }
+}
+
+.user-card__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.6px;
+}
+
+.user-card__row > span:first-child {
+  color: #667C7C;
+}
+
+.user-card__row > span:last-child {
+  font-weight: 700;
+  color: #1D3939;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.user-card .user-card__row .user-card__value--accent {
+  color: #D4A373 !important;
+}
+
+.user-card .user-card__row .user-card__value--italic {
+  color: #667C7C;
+  font-style: italic;
+}
+
+.user-card__row .user-card__coordinates {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.user-card__row .user-card__coordinates span {
+  width: 77px;
+  min-width: 77px;
+  height: 20px;
+  padding: 0.5px 6px;
+  border: 1px solid #E2E8F0;
+  border-radius: 3px;
+  background-color: #F4F7F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 18px;
+  color: #1D3939;
+}
+
+.user-card__delete {
+  min-height: 40px;
+  margin: auto 30px 25px;
+  border: none;
+  border-radius: 4px;
+  background-color: #B15757;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -1,0 +1,80 @@
+<form
+  class="user-create"
+  [formGroup]="userForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h2>Добавить пользователя</h2>
+  <div class="user-create__field">
+    <label for="user-create-name">Имя *</label>
+    <input
+      id="user-create-name"
+      type="text"
+      formControlName="name"
+      placeholder="Введите имя"
+    />
+    @if (userForm.controls.name.touched && userForm.controls.name.invalid) {
+      <span class="user-create__error">Введите имя</span>
+    }
+  </div>
+  <div class="user-create__field">
+    <label for="user-create-username">Логин *</label>
+    <input
+      id="user-create-username"
+      type="text"
+      formControlName="username"
+      placeholder="Введите логин"
+    />
+    @if (userForm.controls.username.touched && userForm.controls.username.invalid) {
+      <span class="user-create__error">Введите логин</span>
+    }
+  </div>
+  <div class="user-create__field">
+    <label for="user-create-email">Электронная почта *</label>
+    <input
+      id="user-create-email"
+      type="email"
+      formControlName="email"
+      placeholder="Введите email"
+    />
+    @if (userForm.controls.email.touched && userForm.controls.email.hasError('required')) {
+      <span class="user-create__error">Введите email</span>
+    }
+    @if (userForm.controls.email.touched && userForm.controls.email.hasError('email')) {
+      <span class="user-create__error">Введите корректный email</span>
+    }
+  </div>
+  <div class="user-create__field">
+    <label for="user-create-phone">Телефон</label>
+    <input
+      id="user-create-phone"
+      type="tel"
+      formControlName="phone"
+      placeholder="Введите телефон"
+    />
+  </div>
+  <div class="user-create__field">
+    <label for="user-create-website">Веб-сайт</label>
+    <input
+      id="user-create-website"
+      type="text"
+      formControlName="website"
+      placeholder="Введите веб-сайт"
+    />
+  </div>
+  <div class="user-create__field">
+    <label for="user-create-city">Город</label>
+    <input
+      id="user-create-city"
+      type="text"
+      formControlName="city"
+      placeholder="Введите город"
+    />
+  </div>
+  <button
+    id="create-user-submit-button"
+    type="submit"
+    class="user-create__submit"
+  >
+    Добавить пользователя
+  </button>
+</form>
