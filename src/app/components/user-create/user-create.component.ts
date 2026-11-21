@@ -2,6 +2,21 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../models/user';
 
+interface UserCreateFormValue {
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  website: string;
+  city: string;
+}
+
+type FormControls<T> = {
+  [K in keyof T]: T[K] extends object
+    ? FormGroup<FormControls<T[K]>>
+    : FormControl<T[K]>;
+};
+
 @Component({
   selector: 'app-user-create',
   standalone: true,
@@ -15,20 +30,13 @@ export class UserCreateComponent {
 
   private formBuilder: FormBuilder = inject(FormBuilder);
 
-  userForm: FormGroup<{
-    name: FormControl<string>;
-    username: FormControl<string>;
-    email: FormControl<string>;
-    phone: FormControl<string>;
-    website: FormControl<string>;
-    city: FormControl<string>;
-  }> = this.formBuilder.nonNullable.group({
-    name: ['', Validators.required],
-    username: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    phone: [''],
-    website: [''],
-    city: [''],
+  userForm: FormGroup<FormControls<UserCreateFormValue>> = this.formBuilder.nonNullable.group({
+    name: this.formBuilder.nonNullable.control('', Validators.required),
+    username: this.formBuilder.nonNullable.control('', Validators.required),
+    email: this.formBuilder.nonNullable.control('', [Validators.required, Validators.email]),
+    phone: this.formBuilder.nonNullable.control(''),
+    website: this.formBuilder.nonNullable.control(''),
+    city: this.formBuilder.nonNullable.control(''),
   });
 
   onSubmit(): void {
@@ -37,14 +45,7 @@ export class UserCreateComponent {
       return;
     }
 
-    const formValue: {
-      name: string;
-      username: string;
-      email: string;
-      phone: string;
-      website: string;
-      city: string;
-    } = this.userForm.getRawValue();
+    const formValue: UserCreateFormValue = this.userForm.getRawValue();
 
     const user: User = {
       id: Date.now(),
