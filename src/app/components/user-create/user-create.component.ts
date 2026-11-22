@@ -2,14 +2,7 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../models/user';
 
-interface UserCreateFormValue {
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-  city: string;
-}
+type UserCreateFormValue = Omit<User, 'id'>;
 
 type FormControls<T> = {
   [K in keyof T]: T[K] extends object
@@ -36,7 +29,21 @@ export class UserCreateComponent {
     email: this.formBuilder.nonNullable.control('', [Validators.required, Validators.email]),
     phone: this.formBuilder.nonNullable.control(''),
     website: this.formBuilder.nonNullable.control(''),
-    city: this.formBuilder.nonNullable.control(''),
+    address: this.formBuilder.nonNullable.group({
+      street: this.formBuilder.nonNullable.control(''),
+      suite: this.formBuilder.nonNullable.control(''),
+      city: this.formBuilder.nonNullable.control(''),
+      zipcode: this.formBuilder.nonNullable.control(''),
+      geo: this.formBuilder.nonNullable.group({
+        lat: this.formBuilder.nonNullable.control(''),
+        lng: this.formBuilder.nonNullable.control(''),
+      }),
+    }),
+    company: this.formBuilder.nonNullable.group({
+      name: this.formBuilder.nonNullable.control(''),
+      catchPhrase: this.formBuilder.nonNullable.control(''),
+      bs: this.formBuilder.nonNullable.control(''),
+    }),
   });
 
   onSubmit(): void {
@@ -49,26 +56,7 @@ export class UserCreateComponent {
 
     const user: User = {
       id: Date.now(),
-      name: formValue.name,
-      username: formValue.username,
-      email: formValue.email,
-      phone: formValue.phone,
-      website: formValue.website,
-      address: {
-        street: '',
-        suite: '',
-        city: formValue.city,
-        zipcode: '',
-        geo: {
-          lat: '',
-          lng: '',
-        },
-      },
-      company: {
-        name: '',
-        catchPhrase: '',
-        bs: '',
-      },
+      ...formValue,
     };
 
     this.createUser.emit(user);

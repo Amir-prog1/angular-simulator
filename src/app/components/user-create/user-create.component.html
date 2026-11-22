@@ -61,14 +61,16 @@
       placeholder="Введите веб-сайт"
     />
   </div>
-  <div class="user-create__field">
-    <label for="user-create-city">Город</label>
-    <input
-      id="user-create-city"
-      type="text"
-      formControlName="city"
-      placeholder="Введите город"
-    />
+  <div formGroupName="address">
+    <div class="user-create__field">
+      <label for="user-create-city">Город</label>
+      <input
+        id="user-create-city"
+        type="text"
+        formControlName="city"
+        placeholder="Введите город"
+      />
+    </div>
   </div>
   <button
     id="create-user-submit-button"
