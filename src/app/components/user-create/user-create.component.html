@@ -13,7 +13,15 @@
       placeholder="Введите имя"
     />
     @if (userForm.controls.name.touched && userForm.controls.name.invalid) {
-      <span class="user-create__error">Введите имя</span>
+      @if (userForm.controls.name.hasError('required')) {
+        <span class="user-create__error">Введите имя</span>
+      }
+      @if (userForm.controls.name.hasError('minlength')) {
+        <span class="user-create__error">Минимальная длина — 2 символа</span>
+      }
+      @if (userForm.controls.name.hasError('maxlength')) {
+        <span class="user-create__error">Максимальная длина — 100 символов</span>
+      }
     }
   </div>
   <div class="user-create__field">
@@ -25,7 +33,15 @@
       placeholder="Введите логин"
     />
     @if (userForm.controls.username.touched && userForm.controls.username.invalid) {
-      <span class="user-create__error">Введите логин</span>
+      @if (userForm.controls.username.hasError('required')) {
+        <span class="user-create__error">Введите логин</span>
+      }
+      @if (userForm.controls.username.hasError('minlength')) {
+        <span class="user-create__error">Минимальная длина — 3 символа</span>
+      }
+      @if (userForm.controls.username.hasError('maxlength')) {
+        <span class="user-create__error">Максимальная длина — 30 символов</span>
+      }
     }
   </div>
   <div class="user-create__field">
@@ -36,21 +52,37 @@
       formControlName="email"
       placeholder="Введите email"
     />
-    @if (userForm.controls.email.touched && userForm.controls.email.hasError('required')) {
-      <span class="user-create__error">Введите email</span>
-    }
-    @if (userForm.controls.email.touched && userForm.controls.email.hasError('email')) {
-      <span class="user-create__error">Введите корректный email</span>
+    @if (userForm.controls.email.touched && userForm.controls.email.invalid) {
+      @if (userForm.controls.email.hasError('required')) {
+        <span class="user-create__error">Введите email</span>
+      }
+      @if (userForm.controls.email.hasError('email')) {
+        <span class="user-create__error">Введите корректный email</span>
+      }
+      @if (userForm.controls.email.hasError('maxlength')) {
+        <span class="user-create__error">Максимальная длина — 100 символов</span>
+      }
     }
   </div>
   <div class="user-create__field">
-    <label for="user-create-phone">Телефон</label>
+    <label for="user-create-phone">Телефон *</label>
     <input
       id="user-create-phone"
       type="tel"
       formControlName="phone"
       placeholder="Введите телефон"
     />
+    @if (userForm.controls.phone.touched && userForm.controls.phone.invalid) {
+      @if (userForm.controls.phone.hasError('required')) {
+        <span class="user-create__error">Введите телефон</span>
+      }
+      @if (userForm.controls.phone.hasError('minlength')) {
+        <span class="user-create__error">Минимальная длина — 10 символов</span>
+      }
+      @if (userForm.controls.phone.hasError('maxlength')) {
+        <span class="user-create__error">Максимальная длина — 25 символов</span>
+      }
+    }
   </div>
   <div class="user-create__field">
     <label for="user-create-website">Веб-сайт</label>
@@ -60,16 +92,148 @@
       formControlName="website"
       placeholder="Введите веб-сайт"
     />
+    @if (userForm.controls.website.touched && userForm.controls.website.hasError('maxlength')) {
+      <span class="user-create__error">Максимальная длина — 100 символов</span>
+    }
   </div>
   <div formGroupName="address">
+    <h3>Адрес</h3>
     <div class="user-create__field">
-      <label for="user-create-city">Город</label>
+      <label for="user-create-city">Город *</label>
       <input
         id="user-create-city"
         type="text"
         formControlName="city"
         placeholder="Введите город"
       />
+      @if (userForm.controls.address.controls.city.touched && userForm.controls.address.controls.city.invalid) {
+        @if (userForm.controls.address.controls.city.hasError('required')) {
+          <span class="user-create__error">Введите город</span>
+        }
+        @if (userForm.controls.address.controls.city.hasError('maxlength')) {
+          <span class="user-create__error">Максимальная длина — 50 символов</span>
+        }
+      }
+    </div>
+    <div class="user-create__field">
+      <label for="user-create-street">Улица *</label>
+      <input
+        id="user-create-street"
+        type="text"
+        formControlName="street"
+        placeholder="Введите улицу"
+      />
+      @if (userForm.controls.address.controls.street.touched && userForm.controls.address.controls.street.invalid) {
+        @if (userForm.controls.address.controls.street.hasError('required')) {
+          <span class="user-create__error">Введите улицу</span>
+        }
+        @if (userForm.controls.address.controls.street.hasError('maxlength')) {
+          <span class="user-create__error">Максимальная длина — 100 символов</span>
+        }
+      }
+    </div>
+    <div class="user-create__field">
+      <label for="user-create-suite">Офис</label>
+      <input
+        id="user-create-suite"
+        type="text"
+        formControlName="suite"
+        placeholder="Введите офис"
+      />
+      @if (userForm.controls.address.controls.suite.touched && userForm.controls.address.controls.suite.hasError('maxlength')) {
+        <span class="user-create__error">Максимальная длина — 50 символов</span>
+      }
+    </div>
+    <div class="user-create__field">
+      <label for="user-create-zipcode">Почтовый индекс *</label>
+      <input
+        id="user-create-zipcode"
+        type="text"
+        formControlName="zipcode"
+        placeholder="Введите индекс"
+      />
+      @if (userForm.controls.address.controls.zipcode.touched && userForm.controls.address.controls.zipcode.invalid) {
+        @if (userForm.controls.address.controls.zipcode.hasError('required')) {
+          <span class="user-create__error">Введите почтовый индекс</span>
+        }
+        @if (userForm.controls.address.controls.zipcode.hasError('minlength')) {
+          <span class="user-create__error">Минимальная длина — 5 символов</span>
+        }
+        @if (userForm.controls.address.controls.zipcode.hasError('maxlength')) {
+          <span class="user-create__error">Максимальная длина — 10 символов</span>
+        }
+      }
+    </div>
+    <div formGroupName="geo">
+      <h4>Координаты</h4>
+      <div class="user-create__field">
+        <label for="user-create-lat">Широта *</label>
+        <input
+          id="user-create-lat"
+          type="text"
+          formControlName="lat"
+          placeholder="Введите широту"
+        />
+        @if (userForm.controls.address.controls.geo.controls.lat.touched && userForm.controls.address.controls.geo.controls.lat.hasError('required')) {
+          <span class="user-create__error">Введите широту</span>
+        }
+      </div>
+      <div class="user-create__field">
+        <label for="user-create-lng">Долгота *</label>
+        <input
+          id="user-create-lng"
+          type="text"
+          formControlName="lng"
+          placeholder="Введите долготу"
+        />
+        @if (userForm.controls.address.controls.geo.controls.lng.touched && userForm.controls.address.controls.geo.controls.lng.hasError('required')) {
+          <span class="user-create__error">Введите долготу</span>
+        }
+      </div>
+    </div>
+  </div>
+  <div formGroupName="company">
+    <h3>Компания</h3>
+    <div class="user-create__field">
+      <label for="user-create-company-name">Название компании *</label>
+      <input
+        id="user-create-company-name"
+        type="text"
+        formControlName="name"
+        placeholder="Введите название компании"
+      />
+      @if (userForm.controls.company.controls.name.touched && userForm.controls.company.controls.name.invalid) {
+        @if (userForm.controls.company.controls.name.hasError('required')) {
+          <span class="user-create__error">Введите название компании</span>
+        }
+        @if (userForm.controls.company.controls.name.hasError('maxlength')) {
+          <span class="user-create__error">Максимальная длина — 50 символов</span>
+        }
+      }
+    </div>
+    <div class="user-create__field">
+      <label for="user-create-catch-phrase">Миссия компании</label>
+      <input
+        id="user-create-catch-phrase"
+        type="text"
+        formControlName="catchPhrase"
+        placeholder="Введите миссию компании"
+      />
+      @if (userForm.controls.company.controls.catchPhrase.touched && userForm.controls.company.controls.catchPhrase.hasError('maxlength')) {
+        <span class="user-create__error">Максимальная длина — 200 символов</span>
+      }
+    </div>
+    <div class="user-create__field">
+      <label for="user-create-bs">Специализация</label>
+      <input
+        id="user-create-bs"
+        type="text"
+        formControlName="bs"
+        placeholder="Введите специализацию"
+      />
+      @if (userForm.controls.company.controls.bs.touched && userForm.controls.company.controls.bs.hasError('maxlength')) {
+        <span class="user-create__error">Максимальная длина — 100 символов</span>
+      }
     </div>
   </div>
   <button
