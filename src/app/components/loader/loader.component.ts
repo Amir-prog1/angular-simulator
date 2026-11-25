@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { LoaderService } from '../../services/loader.service';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-loader',
@@ -14,7 +15,9 @@ export class LoaderComponent {
   loaderService: LoaderService = inject(LoaderService);
 
   constructor() {
-    this.loaderService.isLoading$.subscribe((isLoading: boolean): void => {
+    this.loaderService.isLoading$.pipe(
+      takeUntilDestroyed(),
+    ).subscribe((isLoading: boolean): void => {
       document.body.classList.toggle('loader-active', isLoading);
     });
   }
